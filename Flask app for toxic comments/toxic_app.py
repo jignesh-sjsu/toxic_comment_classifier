@@ -83,29 +83,31 @@ def toxic():
 
     toxic_statement = False
 
-    if out_tox > 0.4:
+    if out_tox > 0.6:
         toxic_statement = True
     
-    if out_sev > 0.4:
+    if out_sev > 0.6:
         toxic_statement = True
 
-    if out_obs > 0.4:
+    if out_obs > 0.6:
         toxic_statement = True
 
-    if out_ins > 0.4:
+    if out_ins > 0.6:
         toxic_statement = True
 
-    if out_thr > 0.4:
+    if out_thr > 0.6:
         toxic_statement = True
 
-    if out_ide > 0.4:
+    if out_ide > 0.6:
         toxic_statement = True
 
     toxic_probability = 'Prob (Toxic): ' + str(out_tox) + ', Prob (Severe Toxic): ' + str(out_sev) + ', Prob (Obscene): ' + str(out_obs) + ', Prob (Insult): ' + str(out_ins) + ', Prob (Threat): ' + str(out_thr) + ', Prob (Identity Hate): ' + str(out_ide)
 
     print(out_tox)
 
-    return ( toxic_probability, str(toxic_statement))
+    response = jsonify({'toxic_probability': toxic_probability,'toxic_statement':str(toxic_statement)})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
     
 
 @app.route("/api/predict", methods=['POST'])
